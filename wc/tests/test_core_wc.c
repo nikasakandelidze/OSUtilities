@@ -8,5 +8,6 @@ int main(int argc, char* argv[]){
     assert(10 == result.numCharacters);
     assert(5 == result.numLines);
     assert(5 == result.numWords);
+    
     return 0;
 }
