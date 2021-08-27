@@ -8,12 +8,9 @@ typedef struct Tuple{
     int numCharacters;
 } Tuple;
 
-Tuple INIT_TUPLE = {0, 0, 0};
-
-
 Tuple countForFile(FILE* file){
     char currentChar;
-    Tuple tuple = INIT_TUPLE;
+    Tuple tuple = {0, 0, 0};
     bool isWord = false;
     while((currentChar = fgetc(file)) != EOF){
         tuple.numCharacters++;
@@ -26,7 +23,6 @@ Tuple countForFile(FILE* file){
             if(isWord){ isWord=false; }
             tuple.numLines++;
         }
-        
     }
     return tuple;
 }
