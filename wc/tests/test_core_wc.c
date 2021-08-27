@@ -7,6 +7,6 @@ int main(int argc, char* argv[]){
     Tuple result = countForFile(fopen("./testFiles/test1.txt", "r"));    
     assert(10 == result.numCharacters);
     assert(5 == result.numLines);
-    //assert(5 == result.numWords);
+    assert(5 == result.numWords);
     return 0;
 }
