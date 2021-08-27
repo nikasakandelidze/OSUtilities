@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     Tuple result = countForFile(file);
     printf("%d\n", result.numLines);
     assert(9 == result.numCharacters);
-    assert(4 == result.numLines);
+    assert(5 == result.numLines);
     assert(5 == result.numWords);
     return 0;
 }
