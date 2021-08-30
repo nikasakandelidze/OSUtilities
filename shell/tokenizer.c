@@ -39,3 +39,19 @@ tokens* tokenize(const char* line){
     }
     return tokens_result;
 }
+
+size_t get_number_of_tokens(struct tokens *tokens){
+    return tokens->log_len;
+}
+
+char *get_nth_token(size_t n, struct tokens *tokens){
+    return tokens -> tokens[n];
+}
+
+void destroy_tokens(struct tokens *tokens){
+    for(int i=0; i<tokens->log_len; i++){
+        free(tokens->tokens[i]);
+    }
+    free(tokens);
+}
+
