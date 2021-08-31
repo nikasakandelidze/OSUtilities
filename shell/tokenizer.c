@@ -52,6 +52,7 @@ void destroy_tokens(struct tokens *tokens){
     for(int i=0; i<tokens->log_len; i++){
         free(tokens->tokens[i]);
     }
+    free(tokens->tokens);
     free(tokens);
 }
 
