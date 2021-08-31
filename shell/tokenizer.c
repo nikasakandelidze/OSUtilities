@@ -16,7 +16,7 @@ void copy_word(char* source, tokens* destination_tokens){
    }
 }
 
-tokens* tokenize(const char* line){
+tokens* tokenize(char* line){
     tokens* tokens_result = malloc(sizeof(tokens));
     tokens_result -> log_len = 0;
     tokens_result -> alloc_len = INIT_SIZE;

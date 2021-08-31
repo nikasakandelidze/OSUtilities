@@ -5,8 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tokenizer.h"
 #include <dirent.h>
+#include <signal.h>
+#include <sys/types.h>
+#include "tokenizer.h"
 
 
 #define NUMBER_OF_COMMANDS 3
@@ -28,6 +30,7 @@ void* pwd_command(struct tokens* tokens){
     if(pwd_result == NULL){
         printf("Couldn't invoke pwd command correctly.\n");
     }else{
+        printf("%s\n", pwd_result);
     }
     free(pwd_result);
     return NULL;
@@ -64,7 +67,6 @@ void* cd_command(struct tokens* tokens){
 
 void* ls_command(struct tokens* tokens){
     int length = get_number_of_tokens(tokens);
-    printf("%d\n", length);
     if(length == 1){
         ls(".");
     }else if(length == 2){
@@ -85,13 +87,24 @@ struct fn_map cmd_functions[] = {
 { .title = "ls", .cmd_function = &ls_command}};  
 
 command_ptr get_function(char* cmd_title){
-    printf("%s\n", cmd_title);
     for(int i=0; i<NUMBER_OF_COMMANDS; i++){
         if(strcmp(cmd_title, cmd_functions[i].title) == 0){
             return cmd_functions[i].cmd_function;
         }
     }
     return NULL;
+}
+
+
+void handle_program_invocation(struct tokens* tokens){
+    int pid = fork();    
+    if(pid == 0){
+        execv(get_nth_token(0, tokens), tokens->tokens);
+    }else if(pid > 0){
+        
+    }else{
+        printf("Error invokig command %s\n", get_nth_token(0, tokens));
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -105,7 +118,7 @@ int main(int argc, char *argv[]) {
         struct tokens* tokens = tokenize(line);
         command_ptr fnc = get_function(get_nth_token(0, tokens)); 
         if(fnc == NULL){
-            printf("Couldn't invoke function %s\n", line);
+            handle_program_invocation(tokens);    
         }else{
             fnc(tokens);
         }

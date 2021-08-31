@@ -9,7 +9,7 @@ typedef struct tokens {
 } tokens;
 
 // Api detail: line shouldnt contain word bigger than 4096 bytes(characters)
-struct tokens *tokenize(const char *line);
+struct tokens *tokenize(char *line);
 
 size_t get_number_of_tokens(struct tokens *tokens);
 
